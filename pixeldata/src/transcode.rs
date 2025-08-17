@@ -410,6 +410,7 @@ mod tests {
         assert_eq!(pixels.len(), rows * cols * spp);
     }
 
+    #[cfg(feature = "jpeg")]
     fn assert_sample_eq_approx(description: &str, found: u8, expected: u8) {
         const ERROR_MARGIN: u8 = 8;
 
