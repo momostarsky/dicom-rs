@@ -417,7 +417,7 @@ where
                 .buffer
                 .split(|v| *v == b'\\')
                 .map(|slice| {
-                    DefaultCharacterSetCodec
+                    self.text.
                         .decode(slice)
                         .context(DecodeTextSnafu {
                             position: self.position,
