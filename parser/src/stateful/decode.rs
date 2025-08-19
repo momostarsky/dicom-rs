@@ -412,19 +412,7 @@ where
                 position: self.position,
             })?;
 
-        let parts: Result<_> = match header.vr() {
-            VR::AE | VR::CS | VR::AS => self
-                .buffer
-                .split(|v| *v == b'\\')
-                .map(|slice| {
-                    DefaultCharacterSetCodec
-                        .decode(slice)
-                        .context(DecodeTextSnafu {
-                            position: self.position,
-                        })
-                })
-                .collect(),
-            _ => self
+        let parts: Result<_> =   self
                 .buffer
                 .split(|v| *v == b'\\')
                 .map(|slice| {
@@ -432,9 +420,7 @@ where
                         position: self.position,
                     })
                 })
-                .collect(),
-        };
-
+                .collect();
         self.position += len as u64;
         Ok(PrimitiveValue::Strs(parts?))
     }
