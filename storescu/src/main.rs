@@ -556,6 +556,7 @@ fn check_file(file: &Path) -> Result<DicomFile, Error> {
         .then_some(false)
         .context(FileNotSupportedSnafu)?;
     let dicom_file = dicom_object::OpenFileOptions::new()
+        .charset_override(dicom_object::file::CharacterSetOverride::AnyVr)
         .read_until(Tag(0x0001, 0x000))
         .open_file(file)
         .map_err(Box::from)
